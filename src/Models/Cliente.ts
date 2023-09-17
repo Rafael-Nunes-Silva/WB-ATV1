@@ -1,6 +1,8 @@
+import CPF from "./CPF";
+import RG from "./RG";
 
 
-export default class Cliente{
+export default class Cliente {
     private nome: string;
     private nomeSocial: string;
     private CPF: CPF;
@@ -19,7 +21,7 @@ export default class Cliente{
         telefones: Array<Telefone>,
         produtosConsumidos: Array<Produto>,
         servicosConsumidos: Array<Servico>
-        ){
+        ) {
         this.nome = nome;
         this.nomeSocial = nomeSocial;
         this.CPF = CPF;

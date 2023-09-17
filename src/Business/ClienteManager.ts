@@ -1,5 +1,6 @@
 import IOManager from "../IO/IOManager";
 import Cliente from "../Models/Cliente";
+import RG from "../Models/RG";
 
 export default class ClienteManager {
     public static NovoCliente(): Cliente {
