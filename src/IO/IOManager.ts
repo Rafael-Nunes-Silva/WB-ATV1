@@ -1,7 +1,4 @@
 import promptSync from 'prompt-sync';
-import RG from '../Models/RG';
-import CPF from '../Models/CPF';
-import Telefone from '../Models/Telefone';
 
 const prompt = promptSync();
 
@@ -15,7 +12,7 @@ export default class IOManager {
         return input.toString();
     }
 
-    public static GetInt(msg: string, errorMsg: string = "\n"): Number {
+    public static GetInt(msg: string, errorMsg: string = "\n"): number {
         const input = prompt(`${msg}: `);
         if(!input){
             console.log(errorMsg);
@@ -24,7 +21,7 @@ export default class IOManager {
         return parseInt(input);
     }
 
-    public static GetFloat(msg: string, errorMsg: string = "\n"): Number {
+    public static GetFloat(msg: string, errorMsg: string = "\n"): number {
         const input = prompt(`${msg}: `);
         if(!input){
             console.log(errorMsg);
@@ -64,56 +61,5 @@ export default class IOManager {
         const dia = input[dateOrder.toLowerCase().indexOf("d")];
 
         return new Date(parseInt(ano), parseInt(mes) - 1, parseInt(dia));
-    }
-
-    public static GetRG(msg: string, errorMsg: string = "\n"): RG {
-        console.log(msg);
-        try {
-            return new RG(
-                this.GetString("Insira o RG", "RG inválido"),
-                this.GetDate("Insira a data de emissão", "dma", "/", "Data inválida")
-            );
-        }
-        catch {
-            console.log(errorMsg);
-            return this.GetRG(msg, errorMsg);
-        }
-    }
-
-    public static GetCPF(msg: string, errorMsg: string = "\n"): CPF {
-        console.log(msg);
-        try {
-            let valor;
-            do {
-                valor = prompt("Insira os númros do CPF (apenas números): ");
-            } while(valor.length != 11);
-    
-            return new CPF(
-                valor,
-                this.GetDate("Insira a data de emissão", "dma", "/", "Data inválida")
-            );
-        }
-        catch {
-            console.log(errorMsg);
-            return this.GetCPF(msg, errorMsg);
-        }
-    }
-
-    public static GetTelefone(msg: string, errorMsg: string = "\n"): Telefone {
-        console.log(msg);
-        try {
-            const ddd = this.GetString("Insira o DDD", "DDD inválido");
-
-            let numero;
-            do {
-                numero = prompt("Insira o número (apenas números): ");
-            } while(numero.length != 11);
-
-            return new Telefone(ddd, numero);
-        }
-        catch {
-            console.log(errorMsg);
-            return this.GetTelefone(msg, errorMsg);
-        }
     }
 }
