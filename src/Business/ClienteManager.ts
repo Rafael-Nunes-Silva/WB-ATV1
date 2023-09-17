@@ -4,12 +4,18 @@ import Produto from "../Models/Produto";
 import RG from "../Models/RG";
 import Servico from "../Models/Servico";
 import Telefone from "../Models/Telefone";
+import CPFManager from "./CPFManager";
+import ProdutoManager from "./ProdutoManager";
+import RGManager from "./RGManager";
+import ServicoManager from "./ServicoManager";
+import TelefoneManager from "./TelefoneManager";
 
 export default class ClienteManager {
     public static NovoCliente(): Cliente {
+        console.log("Cadastro de cliente:");
         const nome = IOManager.GetString("Nome");
         const nomeSocial = IOManager.GetString("Nome social");
-        const CPF = IOManager.GetCPF("CPF");
+        const CPF = CPFManager.NovoCPF();
         const RGs = this.GetRGs();
         const dataCadastro = new Date(Date.now());
         const telefones = this.GetTelefones();
@@ -31,7 +37,7 @@ export default class ClienteManager {
     private static GetRGs(): Array<RG> {
         const RGs: Array<RG> = [];
         do{
-            RGs.push(IOManager.GetRG("Insira o RG"));
+            RGs.push(RGManager.NovoRG());
         } while(IOManager.GetBool("Adicionar outro RG?"));
         return RGs;
     }
@@ -39,7 +45,7 @@ export default class ClienteManager {
     private static GetTelefones(): Array<Telefone> {
         const telefones: Array<Telefone> = [];
         do{
-            telefones.push(IOManager.GetTelefone("Insira o telefone"));
+            telefones.push(TelefoneManager.NovoTelefone());
         } while(IOManager.GetBool("Adicionar outro telefone?"));
         return telefones;
     }
@@ -51,7 +57,7 @@ export default class ClienteManager {
         }
 
         do{
-            produtos.push(IOManager.GetProduto("Insira o codigo do produto"));
+            produtos.push(ProdutoManager.NovoProduto());
         } while(IOManager.GetBool("Adicionar outro produto?"));
         return produtos;
     }
@@ -63,7 +69,7 @@ export default class ClienteManager {
         }
 
         do{
-            servicos.push(IOManager.GetServico("Insira o codigo do servico"));
+            servicos.push(ServicoManager.NovoServico());
         } while(IOManager.GetBool("Adicionar outro servico?"));
         return servicos;
     }
