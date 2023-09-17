@@ -16,6 +16,6 @@ export default class Telefone {
     }
 
     public get NumeroFormatado(): string {
-        return `(${this.ddd}) ${this.numero}`;
+        return `(${this.ddd}) ${this.numero.slice(0, 6)}-${this.numero.slice(6, 12)}`;
     }
 }

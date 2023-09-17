@@ -1,6 +1,9 @@
 import IOManager from "../IO/IOManager";
 import Cliente from "../Models/Cliente";
+import Produto from "../Models/Produto";
 import RG from "../Models/RG";
+import Servico from "../Models/Servico";
+import Telefone from "../Models/Telefone";
 
 export default class ClienteManager {
     public static NovoCliente(): Cliente {
