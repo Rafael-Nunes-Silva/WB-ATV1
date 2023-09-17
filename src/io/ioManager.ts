@@ -1,4 +1,6 @@
 import promptSync from 'prompt-sync';
+import RG from '../Models/RG';
+import CPF from '../Models/CPF';
 
 const prompt = promptSync();
 
@@ -64,10 +66,21 @@ export default class IOManager {
     }
 
     public static GetRG(msg: string, errorMsg: string = "\n"): RG {
-
+        return new RG(
+            this.GetString("Insira o RG", "RG inválido"),
+            this.GetDate("Insira a data de emissão", "dma", "/", "Data inválida")
+        );
     }
 
     public static GetCPF(msg: string, errorMsg: string = "\n"): CPF {
-        
+        let valor;
+        do {
+            valor = prompt("Insira os númros do CPF: ");
+        } while(valor.length != 11 && valor.length != 14);
+
+        return new CPF(
+            valor,
+            this.GetDate("Insira a data de emissão", "dma", "/", "Data inválida")
+        );
     }
 }
