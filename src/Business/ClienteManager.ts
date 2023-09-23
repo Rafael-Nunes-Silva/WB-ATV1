@@ -15,6 +15,7 @@ export default class ClienteManager {
         console.log("Cadastro de cliente:");
         const nome = IOManager.GetString("Nome");
         const nomeSocial = IOManager.GetString("Nome social");
+        const genero = IOManager.GetString("Genero").toUpperCase();
         const CPF = CPFManager.NovoCPF();
         const RGs = this.GetRGs();
         const dataCadastro = new Date(Date.now());
@@ -25,6 +26,7 @@ export default class ClienteManager {
         return new Cliente(
             nome,
             nomeSocial,
+            genero,
             CPF,
             RGs,
             dataCadastro,

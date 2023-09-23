@@ -1,6 +1,6 @@
 import IOManager from "../IO/IOManager";
 
-class Opcao{
+class Opcao {
     msg: string;
     func: Function;
 
@@ -10,21 +10,21 @@ class Opcao{
     }
 }
 
-class Menu{
+class Menu {
     opcoes: Array<Opcao>;
     sair: boolean = false;
 
-    constructor(opcoes: Array<Opcao>){
+    constructor(opcoes: Array<Opcao>) {
         this.opcoes = opcoes;
     }
 
-    public Display(){
-        for(let i = 0; i < this.opcoes.length; i++){
+    public Display() {
+        for(let i = 0; i < this.opcoes.length; i++) {
             console.log(`${i} - ${this.opcoes[i].msg}`)
         }
 
         let escolha = -1;
-        do{
+        do {
             escolha = IOManager.GetInt("Escolha: ")
         } while (escolha < 0 || escolha >= this.opcoes.length);
 
@@ -160,9 +160,9 @@ const MENU_PRINCIPAL = new Menu([
 
 let menuAtual: Menu | null = MENU_PRINCIPAL;
 
-export default class Terminal{
-    public static Start(){
-        while(menuAtual != null){
+export default class Terminal {
+    public static Start() {
+        while(menuAtual != null) {
             menuAtual.Display();
         }
     }
