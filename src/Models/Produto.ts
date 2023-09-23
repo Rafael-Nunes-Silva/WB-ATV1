@@ -7,11 +7,11 @@ export default class Produto {
         this.valor = valor;
     }
 
-    public get Nome(): string {
+    public get GetNome(): string {
         return this.nome;
     }
 
-    public get Valor(): number {
+    public get GetValor(): number {
         return this.valor;
     }
 }

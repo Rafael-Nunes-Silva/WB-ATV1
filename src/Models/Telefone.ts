@@ -7,15 +7,15 @@ export default class Telefone {
         this.numero = numero;
     }
 
-    public get DDD(): string {
+    public get GetDDD(): string {
         return this.ddd;
     }
 
-    public get Numero(): string {
+    public get GetNumero(): string {
         return this.numero;
     }
 
-    public get NumeroFormatado(): string {
+    public get GetNumeroFormatado(): string {
         return `(${this.ddd}) ${this.numero.slice(0, 6)}-${this.numero.slice(6, 12)}`;
     }
 }

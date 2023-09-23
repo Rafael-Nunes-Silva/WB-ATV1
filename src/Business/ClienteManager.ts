@@ -12,16 +12,16 @@ import TelefoneManager from "./TelefoneManager";
 
 export default class ClienteManager {
     public static NovoCliente(): Cliente {
-        console.log("Cadastro de cliente:");
+        console.log("Cadastro de cliente");
         const nome = IOManager.GetString("Nome");
         const nomeSocial = IOManager.GetString("Nome social");
         const genero = IOManager.GetString("Genero").toUpperCase();
         const CPF = CPFManager.NovoCPF();
-        const RGs = this.GetRGs();
+        const RGs = this.GetRGs;
         const dataCadastro = new Date(Date.now());
-        const telefones = this.GetTelefones();
-        const produtosConsumidos = this.GetProdutos();
-        const servicosConsumidos = this.GetServicos();
+        const telefones = this.GetTelefones;
+        const produtosConsumidos = this.GetProdutos;
+        const servicosConsumidos = this.GetServicos;
 
         return new Cliente(
             nome,
@@ -36,43 +36,71 @@ export default class ClienteManager {
         );
     }
 
-    private static GetRGs(): Array<RG> {
+    private static get GetRGs(): Array<RG> {
         const RGs: Array<RG> = [];
-        do{
+        do {
             RGs.push(RGManager.NovoRG());
         } while(IOManager.GetBool("Adicionar outro RG?"));
         return RGs;
     }
 
-    private static GetTelefones(): Array<Telefone> {
+    private static get GetTelefones(): Array<Telefone> {
         const telefones: Array<Telefone> = [];
-        do{
+        do {
             telefones.push(TelefoneManager.NovoTelefone());
         } while(IOManager.GetBool("Adicionar outro telefone?"));
         return telefones;
     }
 
-    private static GetProdutos(): Array<Produto> {
+    private static get GetProdutos(): Array<Produto> {
         const produtos: Array<Produto> = [];
-        if(!IOManager.GetBool("Adicionar produtos já consumidos?")){
+        if (!IOManager.GetBool("Adicionar produtos já consumidos?")) {
             return produtos;
         }
 
-        do{
+        do {
             produtos.push(ProdutoManager.NovoProduto());
         } while(IOManager.GetBool("Adicionar outro produto?"));
         return produtos;
     }
 
-    private static GetServicos(): Array<Servico> {
+    private static get GetServicos(): Array<Servico> {
         const servicos: Array<Servico> = [];
-        if(!IOManager.GetBool("Adicionar servicos já consumidos?")){
+        if (!IOManager.GetBool("Adicionar servicos já consumidos?")) {
             return servicos;
         }
 
-        do{
+        do {
             servicos.push(ServicoManager.NovoServico());
         } while(IOManager.GetBool("Adicionar outro servico?"));
         return servicos;
+    }
+
+    public static MontarStringListagem(clientes: Array<Cliente>): string {
+        let listagem = "";
+
+        clientes.forEach(
+            function(cliente: Cliente) {
+                listagem += `----------${cliente.GetNome}----------`;
+                listagem += `\nNome Social: ${cliente.GetNomeSocial}`;
+                listagem += `\nGenero: ${cliente.GetGenero}`;
+                listagem += `\nCPF: ${cliente.GetCPF.GetValorFormatado}`;
+                listagem += `\n\n----------RGs----------`;
+                cliente.GetRGs.forEach(
+                    function(rg: RG, index: number) {
+                        listagem += `\n${index} - ${rg.GetValor}`;
+                    }
+                );
+                listagem += `\nData de Cadastro: ${cliente.GetDataCadastro.toLocaleDateString()}`;
+                listagem += `\n\n----------Telefones----------`;
+                cliente.GetTelefones.forEach(
+                    function(telefone: Telefone, index: number) {
+                        listagem += `\n${index} - ${telefone.GetNumeroFormatado}`;
+                    }
+                );
+            }
+        );
+        
+        return listagem;
     }
 }

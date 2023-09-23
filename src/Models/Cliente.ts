@@ -36,4 +36,33 @@ export default class Cliente {
         this.produtosConsumidos = produtosConsumidos;
         this.servicosConsumidos = servicosConsumidos;
     }
+
+    public get GetNome(): string {
+        return this.nome;
+    }
+    public get GetNomeSocial(): string {
+        return this.nomeSocial;
+    }
+    public get GetGenero(): string {
+        return this.genero.toUpperCase();
+    }
+    public get GetCPF(): CPF {
+        return this.CPF;
+    }
+    public get GetRGs(): Array<RG> {
+        return this.RGs;
+    }
+    public get GetDataCadastro(): Date {
+        return this.dataCadastro;
+    }
+    public get GetTelefones(): Array<Telefone> {
+        return this.telefones;
+    }
+
+    public get GetProdutosConsumidos() {
+        return this.produtosConsumidos;
+    }
+    public get GetServicosConsumidos() {
+        return this.servicosConsumidos;
+    }
 }

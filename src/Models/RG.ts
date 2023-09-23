@@ -7,11 +7,11 @@ export default class RG {
         this.dataEmissao = dataEmissao;
     }
 
-    public get Valor(): string {
+    public get GetValor(): string {
         return this.valor;
     }
 
-    public get DataEmissao(): Date {
+    public get GetDataEmissao(): Date {
         return this.dataEmissao;
     }
 }

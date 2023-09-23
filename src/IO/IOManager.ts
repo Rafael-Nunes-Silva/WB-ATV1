@@ -5,7 +5,7 @@ const prompt = promptSync();
 export default class IOManager {
     public static GetString(msg: string, errorMsg: string = "\n"): string {
         const input = prompt(`${msg}: `);
-        if(!input){
+        if (!input) {
             console.log(errorMsg);
             return this.GetString(msg, errorMsg);
         }
@@ -14,7 +14,7 @@ export default class IOManager {
 
     public static GetInt(msg: string, errorMsg: string = "\n"): number {
         const input = prompt(`${msg}: `);
-        if(!input){
+        if (!input) {
             console.log(errorMsg);
             return this.GetInt(msg, errorMsg);
         }
@@ -23,7 +23,7 @@ export default class IOManager {
 
     public static GetFloat(msg: string, errorMsg: string = "\n"): number {
         const input = prompt(`${msg}: `);
-        if(!input){
+        if (!input) {
             console.log(errorMsg);
             return this.GetFloat(msg, errorMsg);
         }
@@ -32,12 +32,12 @@ export default class IOManager {
 
     public static GetBool(msg: string, ySymbol: string = "S", nSymbol: string = "N", errorMsg: string = "\n"): Boolean {
         const input = prompt(`${msg} (${ySymbol}/${nSymbol}): `);
-        if(!input){
+        if (!input) {
             console.log(errorMsg);
             return this.GetBool(msg, ySymbol, nSymbol, errorMsg);
         }
 
-        switch(input){
+        switch(input) {
             case ySymbol:
                 return true;
             case nSymbol:
@@ -51,7 +51,7 @@ export default class IOManager {
         const dateFormatString = dateOrder[0] + dateSeparator + dateOrder[1] + dateSeparator + dateOrder[2];
 
         const input = prompt(`${msg} (${dateFormatString}): `).split(dateSeparator);
-        if(!input){
+        if (!input) {
             console.log(errorMsg);
             return this.GetDate(msg, dateOrder, dateSeparator, errorMsg);
         }

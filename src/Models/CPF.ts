@@ -7,16 +7,16 @@ export default class CPF {
         this.dataEmissao = dataEmissao;
     }
 
-    public get Valor(): string {
+    public get GetValor(): string {
         return this.valor;
     }
 
-    public get ValorFormatado(): string {
-        "000.000.000-00"
+    public get GetValorFormatado(): string {
+        // XXX.XXX.XXX-XX
         return `${this.valor.slice(0, 3)}.${this.valor.slice(3, 6)}.${this.valor.slice(6, 9)}-${this.valor.slice(9, 12)}`;
     }
 
-    public get DataEmissao(): Date {
+    public get GetDataEmissao(): Date {
         return this.dataEmissao;
     }
 }
