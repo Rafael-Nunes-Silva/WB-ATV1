@@ -18,7 +18,7 @@ export default class IOManager {
             console.log(errorMsg);
             return this.GetInt(msg, errorMsg);
         }
-        return parseInt(input);
+        return parseInt(input) || 0;
     }
 
     public static GetFloat(msg: string, errorMsg: string = "\n"): number {
@@ -27,7 +27,7 @@ export default class IOManager {
             console.log(errorMsg);
             return this.GetFloat(msg, errorMsg);
         }
-        return parseFloat(input);
+        return parseFloat(input) || 0;
     }
 
     public static GetBool(msg: string, ySymbol: string = "S", nSymbol: string = "N", errorMsg: string = "\n"): Boolean {

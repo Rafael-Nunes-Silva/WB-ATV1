@@ -59,6 +59,22 @@ export default class Cliente {
         return this.telefones;
     }
 
+    public set SetNome(nome: string) {
+        this.nome = nome;
+    }
+    public set SetNomeSocial(nomeSocial: string) {
+        this.nomeSocial = nomeSocial;
+    }
+    public set SetGenero(genero: string) {
+        this.genero = genero.toUpperCase();
+    }
+    public set SetRGs(RGs: Array<RG>) {
+        this.RGs = RGs;
+    }
+    public set SetTelefones(telefones: Array<Telefone>) {
+        this.telefones = telefones;
+    }
+
     public get GetProdutosConsumidos() {
         return this.produtosConsumidos;
     }

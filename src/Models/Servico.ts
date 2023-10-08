@@ -10,8 +10,11 @@ export default class Servico {
     public get GetNome(): string {
         return this.nome;
     }
-
     public get GetValor(): number {
         return this.valor;
+    }
+
+    public set SetValor(valor: number) {
+        this.valor = valor;
     }
 }

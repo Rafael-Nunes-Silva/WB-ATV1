@@ -5,6 +5,7 @@ import RG from "../Models/RG";
 import Servico from "../Models/Servico";
 import Telefone from "../Models/Telefone";
 import CPFManager from "./CPFManager";
+import Empresa from "./Empresa";
 import ProdutoManager from "./ProdutoManager";
 import RGManager from "./RGManager";
 import ServicoManager from "./ServicoManager";
@@ -53,25 +54,41 @@ export default class ClienteManager {
     }
 
     private static get GetProdutos(): Array<Produto> {
-        const produtos: Array<Produto> = [];
+        const produtos: Array<Produto> = Array<Produto>(0);
         if (!IOManager.GetBool("Adicionar produtos já consumidos?")) {
             return produtos;
         }
 
         do {
-            produtos.push(ProdutoManager.NovoProduto());
+            const nome = IOManager.GetString("Nome do serviço");
+            const produto = Empresa.GetProdutos.find((p) => { return p.GetNome == nome });
+
+            if (!produto) {
+                console.log("Produto não cadastrado no sistema.");
+                continue;
+            }
+            
+            produtos.push(produto);
         } while(IOManager.GetBool("Adicionar outro produto?"));
         return produtos;
     }
 
     private static get GetServicos(): Array<Servico> {
-        const servicos: Array<Servico> = [];
+        const servicos: Array<Servico> = Array<Servico>(0);
         if (!IOManager.GetBool("Adicionar servicos já consumidos?")) {
             return servicos;
         }
 
         do {
-            servicos.push(ServicoManager.NovoServico());
+            const nome = IOManager.GetString("Nome do serviço");
+            const servico = Empresa.GetSericos.find((s) => { return s.GetNome == nome });
+
+            if (!servico) {
+                console.log("Serviço não cadastrado no sistema.");
+                continue;
+            }
+            
+            servicos.push(servico);
         } while(IOManager.GetBool("Adicionar outro servico?"));
         return servicos;
     }

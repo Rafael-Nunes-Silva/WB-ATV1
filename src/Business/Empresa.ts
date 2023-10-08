@@ -1,3 +1,4 @@
+import CPF from "../Models/CPF";
 import Cliente from "../Models/Cliente";
 import Produto from "../Models/Produto";
 import Servico from "../Models/Servico";
@@ -15,6 +16,28 @@ export default class Empresa {
     }
     public static AdicionarServico(servico: Servico) {
         this.servicos.push(servico);
+    }
+
+    public static DeletarCliente(cpf: CPF) {
+        for(let i = 0; i < this.clientes.length; i++) {
+            if(this.clientes[i].GetCPF == cpf) {
+                this.clientes.filter((cliente) => { return cliente.GetCPF != cpf });
+            }
+        }
+    }
+    public static DeletarProduto(nome: string) {
+        for(let i = 0; i < this.produtos.length; i++) {
+            if(this.produtos[i].GetNome == nome) {
+                this.produtos.filter((produto) => { return produto.GetNome != nome });
+            }
+        }
+    }
+    public static DeletarServico(nome: string) {
+        for(let i = 0; i < this.servicos.length; i++) {
+            if(this.servicos[i].GetNome == nome) {
+                this.servicos.filter((servico) => { return servico.GetNome != nome });
+            }
+        }
     }
 
     public static get GetClientes() {

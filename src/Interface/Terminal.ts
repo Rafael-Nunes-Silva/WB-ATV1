@@ -1,5 +1,10 @@
+import CPFManager from "../Business/CPFManager";
 import ClienteManager from "../Business/ClienteManager";
 import Empresa from "../Business/Empresa";
+import ProdutoManager from "../Business/ProdutoManager";
+import RGManager from "../Business/RGManager";
+import ServicoManager from "../Business/ServicoManager";
+import TelefoneManager from "../Business/TelefoneManager";
 import IOManager from "../IO/IOManager";
 import Cliente from "../Models/Cliente";
 import RG from "../Models/RG";
@@ -33,7 +38,7 @@ class Menu {
 
         let escolha = -1;
         do {
-            escolha = IOManager.GetInt("Escolha")
+            escolha = IOManager.GetInt("Escolha");
         } while (escolha < 0 || escolha >= this.opcoes.length);
 
         this.opcoes[escolha].func();
@@ -199,29 +204,34 @@ const MENU_CLIENTE = new Menu(
         new Opcao(
             "Atualizar",
             function() {
-                console.log("***Não implementado***");
-                // console.log("Cadastro de cliente");
-                // const nome = IOManager.GetString("Nome");
-                // const nomeSocial = IOManager.GetString("Nome social");
-                // const genero = IOManager.GetString("Genero").toUpperCase();
-                // const CPF = CPFManager.NovoCPF();
-                // const RGs = this.GetRGs();
-                // const dataCadastro = new Date(Date.now());
-                // const telefones = this.GetTelefones();
-                // const produtosConsumidos = this.GetProdutos();
-                // const servicosConsumidos = this.GetServicos();
+                const cpf = CPFManager.NovoCPF();
+                const cliente = Empresa.GetClientes.find((c) => { return c.GetCPF == cpf })
 
-                // return new Cliente(
-                //     nome,
-                //     nomeSocial,
-                //     genero,
-                //     CPF,
-                //     RGs,
-                //     dataCadastro,
-                //     telefones,
-                //     produtosConsumidos,
-                //     servicosConsumidos
-                // );
+                if (!cliente) {
+                    console.log("CPF não cadastrado no sistema.");
+                    return;
+                }
+
+                if (IOManager.GetBool("Alterar nome social?")) {
+                    cliente.SetNomeSocial = IOManager.GetString("Nome Social");
+                }
+                if (IOManager.GetBool("Alterar o genero?")) {
+                    cliente.SetGenero = IOManager.GetString("Genero");
+                }
+                if (IOManager.GetBool("Alterar os RGs?")) {
+                    const RGs = Array<RG>(0);
+                    do {
+                        RGs.push(RGManager.NovoRG());
+                    } while(IOManager.GetBool("Adicionar outro RG?"));
+                    cliente.SetRGs = RGs;
+                }
+                if (IOManager.GetBool("Alterar os telefones?")) {
+                    const telefones = Array<Telefone>(0);
+                    do {
+                        telefones.push(TelefoneManager.NovoTelefone());
+                    } while(IOManager.GetBool("Adicionar outro telefone?"));
+                    cliente.SetTelefones = telefones;
+                }
             }
         ),
         new Opcao(
@@ -245,25 +255,39 @@ const MENU_SERVICO = new Menu(
         new Opcao(
             "Cadastrar",
             function() {
-                console.log("***Não implementado***");
+                Empresa.AdicionarServico(
+                    ServicoManager.NovoServico()
+                );
             }
         ),
         new Opcao(
             "Listar Todos",
             function() {
-                console.log("***Não implementado***");
+                console.log(
+                    ServicoManager.MontarStringListagem(
+                        Empresa.GetSericos
+                    )
+                );
             }
         ),
         new Opcao(
             "Atualizar",
             function() {
-                console.log("***Não implementado***");
+                const nome = IOManager.GetString("Nome do serviço");
+                const servico = Empresa.GetSericos.find((s) => { return s.GetNome == nome });
+
+                if (!servico) {
+                    console.log("Serviço não cadastrado no sistema.");
+                    return;
+                }
+
+                servico.SetValor = IOManager.GetFloat("Valor do serviço");
             }
         ),
         new Opcao(
             "Deletar",
             function() {
-                console.log("***Não implementado***");
+                Empresa.DeletarProduto(IOManager.GetString("Insira o nome do serviço"));
             }
         )
     ]
@@ -281,25 +305,39 @@ const MENU_PRODUTO = new Menu(
         new Opcao(
             "Cadastrar",
             function() {
-                console.log("***Não implementado***");
+                Empresa.AdicionarProduto(
+                    ProdutoManager.NovoProduto()
+                );
             }
         ),
         new Opcao(
             "Listar Todos",
             function() {
-                console.log("***Não implementado***");
+                console.log(
+                    ProdutoManager.MontarStringListagem(
+                        Empresa.GetProdutos
+                    )
+                );
             }
         ),
         new Opcao(
             "Atualizar",
             function() {
-                console.log("***Não implementado***");
+                const nome = IOManager.GetString("Nome do produto");
+                const produto = Empresa.GetProdutos.find((p) => { return p.GetNome == nome });
+
+                if (!produto) {
+                    console.log("Produto não cadastrado no sistema.");
+                    return;
+                }
+
+                produto.SetValor = IOManager.GetFloat("Valor do produto");
             }
         ),
         new Opcao(
             "Deletar",
             function() {
-                console.log("***Não implementado***");
+                Empresa.DeletarProduto(IOManager.GetString("Insira o nome do produto"));
             }
         )
     ]

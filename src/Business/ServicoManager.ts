@@ -9,4 +9,17 @@ export default class ServicoManager {
 
         return new Servico(nome, valor);
     }
+
+    public static MontarStringListagem(servicos: Array<Servico>): string {
+        let listagem = "";
+
+        servicos.forEach(
+            function(servico: Servico) {
+                listagem += `----------${servico.GetNome}----------`;
+                listagem += `\nValor: ${servico.GetValor}`;
+            }
+        );
+        
+        return listagem;
+    }
 }

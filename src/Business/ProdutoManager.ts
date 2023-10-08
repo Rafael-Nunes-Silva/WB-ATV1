@@ -9,4 +9,17 @@ export default class ProdutoManager {
 
         return new Produto(nome, valor);
     }
+
+    public static MontarStringListagem(produtos: Array<Produto>): string {
+        let listagem = "";
+
+        produtos.forEach(
+            function(produto: Produto) {
+                listagem += `----------${produto.GetNome}----------`;
+                listagem += `\nValor: ${produto.GetValor}`;
+            }
+        );
+        
+        return listagem;
+    }
 }
