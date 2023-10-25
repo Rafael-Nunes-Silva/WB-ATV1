@@ -6,9 +6,7 @@ import Servico from "../Models/Servico";
 import Telefone from "../Models/Telefone";
 import CPFManager from "./CPFManager";
 import Empresa from "./Empresa";
-import ProdutoManager from "./ProdutoManager";
 import RGManager from "./RGManager";
-import ServicoManager from "./ServicoManager";
 import TelefoneManager from "./TelefoneManager";
 
 export default class ClienteManager {

@@ -6,7 +6,6 @@ import RGManager from "../Business/RGManager";
 import ServicoManager from "../Business/ServicoManager";
 import TelefoneManager from "../Business/TelefoneManager";
 import IOManager from "../IO/IOManager";
-import Cliente from "../Models/Cliente";
 import RG from "../Models/RG";
 import Telefone from "../Models/Telefone";
 
@@ -237,7 +236,7 @@ const MENU_CLIENTE = new Menu(
         new Opcao(
             "Deletar",
             function() {
-                console.log("***Não implementado***");
+                Empresa.DeletarCliente(CPFManager.NovoCPF());
             }
         )
     ]
@@ -287,7 +286,8 @@ const MENU_SERVICO = new Menu(
         new Opcao(
             "Deletar",
             function() {
-                Empresa.DeletarProduto(IOManager.GetString("Insira o nome do serviço"));
+                console.log("PORRA");
+                Empresa.DeletarServico(IOManager.GetString("Insira o nome do serviço"));
             }
         )
     ]

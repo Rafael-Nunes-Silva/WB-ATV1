@@ -19,25 +19,15 @@ export default class Empresa {
     }
 
     public static DeletarCliente(cpf: CPF) {
-        for(let i = 0; i < this.clientes.length; i++) {
-            if(this.clientes[i].GetCPF == cpf) {
-                this.clientes.filter((cliente) => { return cliente.GetCPF != cpf });
-            }
-        }
+        this.clientes = this.clientes.filter((cliente) => {
+            return (cliente.GetCPF.GetValor != cpf.GetValor) && (cliente.GetCPF.GetDataEmissao != cpf.GetDataEmissao);
+        });
     }
     public static DeletarProduto(nome: string) {
-        for(let i = 0; i < this.produtos.length; i++) {
-            if(this.produtos[i].GetNome == nome) {
-                this.produtos.filter((produto) => { return produto.GetNome != nome });
-            }
-        }
+        this.produtos = this.produtos.filter((produto) => { return produto.GetNome != nome });
     }
     public static DeletarServico(nome: string) {
-        for(let i = 0; i < this.servicos.length; i++) {
-            if(this.servicos[i].GetNome == nome) {
-                this.servicos.filter((servico) => { return servico.GetNome != nome });
-            }
-        }
+        this.servicos = this.servicos.filter((servico) => { return servico.GetNome != nome });
     }
 
     public static get GetClientes() {
