@@ -10,9 +10,6 @@ export default class Empresa {
     private static servicos: Array<Servico> = new Array<Servico>(0);
 
     private static LoadData() {
-        // this.clientes = JSON.parse(localStorage.getItem("Clientes") as string) || [];
-        // this.produtos = JSON.parse(localStorage.getItem("Produtos") as string) || [];
-        // this.servicos = JSON.parse(localStorage.getItem("Servicos") as string) || [];
         this.clientes = [];
         const clientes = JSON.parse(localStorage.getItem("Clientes") as string) || [];
         clientes.forEach((cliente: any) => {
@@ -55,81 +52,213 @@ export default class Empresa {
     }
 
     public static AdicionarCliente(cliente: Cliente) {
-        this.LoadData();
-        this.clientes.push(cliente);
-        this.SaveData();
+        fetch("http://localhost:9000/adicionar/cliente", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(cliente),
+            mode: "cors"
+        })
+            .catch(err => {
+                console.log(err);
+            });
     }
     public static AdicionarProduto(produto: Produto) {
-        this.LoadData();
-        this.produtos.push(produto);
-        this.SaveData();
+        fetch("http://localhost:9000/adicionar/produto", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(produto),
+            mode: "cors"
+        })
+            .catch(err => {
+                console.log(err);
+            });
     }
     public static AdicionarServico(servico: Servico) {
-        this.LoadData();
-        this.servicos.push(servico);
-        this.SaveData();
+        fetch("http://localhost:9000/adicionar/servico", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(servico),
+            mode: "cors"
+        })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     public static DeletarCliente(cpf: any) {
-        this.LoadData();
-        this.clientes = this.clientes.filter((cliente) => {
-            return ((cliente.GetCPF as any).valor != cpf.valor) && ((cliente.GetCPF as any).dataEmissao != cpf.dataEmissao);
-        });
-        this.SaveData();
+        fetch("http://localhost:9000/deletar/cliente", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(cpf),
+            mode: "cors"
+        })
+            .catch(err => {
+                console.log(err);
+            });
     }
     public static DeletarProduto(nome: string) {
-        this.LoadData();
-        this.produtos = this.produtos.filter((produto) => { return produto.GetNome != nome });
-        this.SaveData();
+        fetch("http://localhost:9000/deletar/produto", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: nome,
+            mode: "cors"
+        })
+            .catch(err => {
+                console.log(err);
+            });
     }
     public static DeletarServico(nome: string) {
-        this.LoadData();
-        this.servicos = this.servicos.filter((servico) => { return servico.GetNome != nome });
-        this.SaveData();
+        fetch("http://localhost:9000/deletar/servico", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: nome,
+            mode: "cors"
+        })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     public static AtualizarCliente(cpf: any, nome: string, nomeSocial: string, genero: string, RGs: Array<RG>, telefones: Array<Telefone>) {
-        this.LoadData();
-        const cliente = this.clientes.filter((cliente) => (cliente.GetCPF as any).valor === cpf.valor && (cliente.GetCPF as any).dataEmissao === cpf.dataEmissao)[0];
-        if (cliente) {
-            cliente.SetNome = nome;
-            cliente.SetNomeSocial = nomeSocial;
-            cliente.SetGenero = genero;
-            cliente.SetRGs = RGs;
-            cliente.SetTelefones = telefones;
-        }
-        this.SaveData();
+        fetch("http://localhost:9000/atualizar/cliente", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nome: nome,
+                SetNomeSocial: nomeSocial,
+                SetGenero: genero,
+                SetRGs: RGs,
+                SetTelefones: telefones
+            }),
+            mode: "cors"
+        })
+            .catch(err => {
+                console.log(err);
+            });
     }
     public static AtualizarProduto(nome: string, valor: number) {
-        this.LoadData();
-        const produto = this.produtos.find((produto) => produto.GetNome === nome);
-        if (produto) {
-            produto.SetValor = valor;
-        }
-        this.SaveData();
+        fetch("http://localhost:9000/atualizar/produto", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nome: nome,
+                valor: valor
+            }),
+            mode: "cors"
+        })
+            .catch(err => {
+                console.log(err);
+            });
     }
     public static AtualizarServico(nome: string, valor: number) {
-        this.LoadData();
-        const servico = this.produtos.find((servico) => servico.GetNome === nome);
-        if (servico) {
-            servico.SetValor = valor;
+        fetch("http://localhost:9000/atualizar/servico", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nome: nome,
+                valor: valor
+            }),
+            mode: "cors"
+        })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    private static async GetClientesBack() {
+        const response = await fetch("http://localhost:9000/get/clientes", {
+            method: "GET",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            mode: "cors"
+        })
+            .catch(err => {
+                console.log(err);
+            });
+
+        if (response) {
+            const clientes = await response.json();
+            return clientes.clientes;
         }
-        this.SaveData();
+        return [];
     }
-
     public static get GetClientes() {
-        this.LoadData();
-        return this.clientes;
+        return this.GetClientesBack();
     }
 
+    private static async GetProdutosBack() {
+        const response = await fetch("http://localhost:9000/get/produtos", {
+            method: "GET",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            mode: "cors"
+        })
+            .catch(err => {
+                console.log(err);
+            });
+
+        if (response) {
+            const produtos = await response.json();
+            return produtos.clientes;
+        }
+        return [];
+    }
     public static get GetProdutos() {
-        this.LoadData();
-        return this.produtos;
+        return this.GetProdutosBack();
     }
 
+    private static async GetServicosBack() {
+        const response = await fetch("http://localhost:9000/get/servicos", {
+            method: "GET",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            mode: "cors"
+        })
+            .catch(err => {
+                console.log(err);
+            });
+
+        if (response) {
+            const servicos = await response.json();
+            return servicos.clientes;
+        }
+        return [];
+    }
     public static get GetServicos() {
-        this.LoadData();
-        return this.servicos;
+        return this.GetServicosBack();
     }
 
     public static GetTopXClientesConsumoProdutoQtd(qtd: number): Array<Cliente> {

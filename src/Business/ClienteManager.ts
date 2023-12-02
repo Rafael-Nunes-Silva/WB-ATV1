@@ -79,7 +79,7 @@ export default class ClienteManager {
 
         do {
             const nome = IOManager.GetString("Nome do serviço");
-            const servico = Empresa.GetSericos.find((s) => { return s.GetNome == nome });
+            const servico = Empresa.GetServicos.find((s) => { return s.GetNome == nome });
 
             if (!servico) {
                 console.log("Serviço não cadastrado no sistema.");
